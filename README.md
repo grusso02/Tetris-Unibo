@@ -3,6 +3,6 @@
 ### Membri del gruppo
 
     ...@studio.unibo.it
-    ...@studio.unibo.it
+    mattia.mercuriali2@studio.unibo.it
     ...@studio.unibo.it
     ...@studio.unibo.it
