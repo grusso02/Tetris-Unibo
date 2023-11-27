@@ -1,2 +1,3 @@
 #!/bin/bash
-./build/Tetris
+
+./build/Tetris_Unibo
