@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
-add_executable(Tetris_Unibo main.cpp)
+add_executable(${PROJECT_NAME} main.cpp src/* lib/*)
 
-target_link_libraries(Tetris_Unibo ${CURSES_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})

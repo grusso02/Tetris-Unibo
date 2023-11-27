@@ -3,6 +3,7 @@
 
 # CMake
 cmake-build-debug/
+build/*
 
 # Visual Studio Code
 !.vscode/
