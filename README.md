@@ -4,5 +4,5 @@
 
     ...@studio.unibo.it
     mattia.mercuriali2@studio.unibo.it
-    ...@studio.unibo.it
+    luca.marangon2@studio.unibo.it
     ...@studio.unibo.it
