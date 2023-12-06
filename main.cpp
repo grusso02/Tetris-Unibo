@@ -7,9 +7,9 @@ int main() {
     cout << addition(1, 2) << endl;
     initscr(); /* Start curses mode 		  */
 
-    Mappa primavesione(25, 100, '|', '-');
-    while (true) {
-    }
+    Board primavesione(0, 0, 25, 100, '|', '-');
+    primavesione.draw(2,2);
+    while (true) {}
     // refresh(); /* update the real screen */
     // getch();   /* Wait for user input */
 

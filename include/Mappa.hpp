@@ -1,13 +1,19 @@
 
-#pragma once // per evitare ridefinizione della classe mappa -> errore
-             // compilazione
+#pragma once // per evitare ridefinizione della classe mappa -> errore compilazione
 #include <ncurses.h>
 
 class Mappa {
-  private:
-    int     altezza, larghezza;
-    WINDOW* win;
+    protected:
+        int y0, x0;
+        int altezza, larghezza;
+        WINDOW* win;
 
-  public:
-    Mappa(int ny, int nx, char chary, char charx);
+    public:
+        Mappa(int starty, int startx, int ny, int nx, char chary, char charx);
+};
+
+class Board: public Mappa {
+    public:
+        Board(int starty, int startx, int ny, int nx, char chary, char charx);
+        void draw(int y0, int x0);
 };
