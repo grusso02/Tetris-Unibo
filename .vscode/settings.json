@@ -1,4 +1,9 @@
-{ /*
+{
+	"files.associations": {
+		"deque": "cpp",
+		"string": "cpp",
+		"vector": "cpp"
+	} /*
 	"editor.formatOnSave": true,
 	"C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, AlignConsecutiveDeclarations: true, PointerAlignment: Left }",
 	"C_Cpp.autoAddFileAssociations": false,
