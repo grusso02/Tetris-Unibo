@@ -10,17 +10,16 @@ Board::Board(int starty, int startx, int ny, int nx, char chary, char charx) { /
     this->win = newwin(ny, nx, y0, x0);
 
     // creo box
-    box(win, chary, charx);
-    wrefresh(win); // NOTA: refresh() NON funziona, perchè non aggiorna tutte le finestre, ma solo quella "standard"
+    this->addBorder(chary,charx);
 }
 void Board::refresh(){
-    wrefresh(this->win);
+    wrefresh(this->win); // NOTA: refresh() NON funziona, perchè non aggiorna tutte le finestre, ma solo "stdscr"(STanDardSCReen)
 }
 void Board::clear(){
     wclear(this->win);
 }
 bool Board::print(int y, int x, char c){
-    if(y<this->height && x<this->width){
+    if(y < this->height && x < this->width){
         wmove(this->win,y,x);
         waddch(win,c);
     }
@@ -29,6 +28,16 @@ bool Board::print(int y, int x, char c){
 char Board::getChar(int y, int x){
     return mvwinch(this->win,y,x);
 }
+void Board::addBorder(char chary, char charx){
+    box(this->win, chary, charx);
+}
+int Board::getHeight(){
+    return this->height;
+}
+int Board::getWidth(){
+    return this->width;
+}
+//char Board::getInput(){}
 
 //***********SOTTOCLASSE
 

@@ -14,6 +14,10 @@ class Board {
         void clear();
         bool print(int y, int x, char c); //ritorna false se fuori range window
         char getChar(int y, int x);
+        void addBorder(char chary, char charx);
+        int getHeight();
+        int getWidth();
+        //char getInput();
 };
 
 class TetrisBoard: public Board { //di dimensioni prefissate per "campo da tetris"
