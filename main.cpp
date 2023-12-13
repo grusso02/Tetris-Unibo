@@ -10,7 +10,8 @@ int main() {
     cout << addition(1, 2) << endl;
     initscr(); // Start curses mode
 
-    TetrisBoard test(0, 0);
+    //TetrisBoard test(0, 0);
+    Game g(0);
     while(true){}
     // getch();   // Wait for user input
 

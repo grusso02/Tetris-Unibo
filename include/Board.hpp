@@ -9,10 +9,12 @@ class Board {
         WINDOW* win;
 
     public:
-        Board(int starty, int startx, int ny, int nx, char chary, char charx);
+        Board();
+        Board(int starty, int startx, int ny, int nx);
         void refresh(); // volendo si può inserire dentro print
         void clear();
-        bool print(int y, int x, char c); //ritorna false se fuori range window
+        bool addchar(int y, int x, char c);
+        bool print(int y, int x,const char *c); //ritorna false se fuori range window
         char getChar(int y, int x);
         void addBorder(char chary, char charx);
         int getHeight();
@@ -22,6 +24,7 @@ class Board {
 
 class TetrisBoard: public Board { //di dimensioni prefissate per "campo da tetris"
     public:
+        TetrisBoard();
         TetrisBoard(int starty, int startx);
         void draw(int y0, int x0);
 };
