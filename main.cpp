@@ -7,13 +7,16 @@ using namespace std;
 
 
 int main() {
-    cout << addition(1, 2) << endl;
+
     initscr(); // Start curses mode
 
-    //TetrisBoard test(0, 0);
-    Game g(0);
-    while(true){}
-    // getch();   // Wait for user input
+    Game game1(0);
+
+    while( game1.isOver() == false ){
+        // game1.processInput(); // riceve l'input dall'utente(se inserito)
+        // game1.updateState(); // agisce in base all'input ricevuto
+        // game1.redraw(); // disegna cambiamenti sulla window
+    }
 
     endwin(); //End curses mode
     return 0;

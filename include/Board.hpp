@@ -27,4 +27,5 @@ class TetrisBoard: public Board { //di dimensioni prefissate per "campo da tetri
         TetrisBoard();
         TetrisBoard(int starty, int startx);
         void draw(int y0, int x0);
+        bool cancelCell(int y, int x);
 };

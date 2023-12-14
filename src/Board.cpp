@@ -63,7 +63,7 @@ void TetrisBoard::draw(int y0, int x0){
         wprintw(win,"<!"); // e scrivo
 
         for(int j=0; j<10; j++){ // 10 colonne (ogni colonna sono 2 caratteri)
-            wprintw(win,"..");
+            wprintw(win,". "); //carattere "·" non va
         }
 
         wprintw(win,"!>");
@@ -74,7 +74,16 @@ void TetrisBoard::draw(int y0, int x0){
     wmove(win,y,x);
     wprintw(win,"  ");
     for(int i=0; i<10; i++){
-        wprintw(win,"VV"); // disegno il fondo
+        wprintw(win,"\\/"); // disegno il fondo
     }
     wrefresh(win);
+}
+bool TetrisBoard::cancelCell(int y, int x){
+    if(y < this->height && x < this->width && x%2 == 0){
+        wmove(this->win,y,x);
+        wprintw(win,". ");
+        return true;
+    }
+    else 
+        return false;
 }
