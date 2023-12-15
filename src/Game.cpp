@@ -15,10 +15,10 @@
 //}
 
 Game::Game(int a){ //(chiamato quando )serve a inizializzare tutti i parametri(=variabili) della classe
-    
+    //NOTA: se non prende almeno un input, il compilatore per qualche 
+    //ragione lo tratta come un costruttore standard e ne ignora il contenuto?
     
     this->tetris_board = TetrisBoard(COORY,COORX,BLOCKY,BLOCKX);
-
     this->scores = Board(3,17,1,3);
     this->next_tetromino = Board(5,9,6,6);
     this->game_over = false;
