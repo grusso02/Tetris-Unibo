@@ -2,15 +2,13 @@
 #include "../include/common_include.h" //per ncurses e altro
 
 Board::Board(){}
-Board::Board(int starty, int startx, int ny, int nx) { //int starty, int startx utili?
+Board::Board(int n_rows, int n_columns, int start_y, int start_x) { //int starty, int startx utili?
     // inizializzo
-    this->y0 = starty;
-    this->x0 = startx;
-    this->height = ny;
-    this->width = nx;
-    this->win = newwin(height, width, y0, x0);
+    this->height = n_rows;
+    this->width = n_columns;
+    this->win = newwin(height, width, start_y, start_x);
 
-    //box non è più creata di default, usare addborder()
+    //se vuoi box, usa this->addborder()
 }
 void Board::refresh(){
     wrefresh(this->win); // NOTA: refresh() NON funziona, perchè non aggiorna tutte le finestre, ma solo "stdscr"(STanDardSCReen)
@@ -51,18 +49,21 @@ int Board::getWidth(){
 //***********SOTTOCLASSE
 
 TetrisBoard::TetrisBoard(){}
-TetrisBoard::TetrisBoard(int starty, int startx): Board(starty,startx,21,24){
-    clear();
-    draw(starty,startx);
+TetrisBoard::TetrisBoard(int starty, int startx, int row_blocks, int column_blocks): Board(row_blocks+1,(column_blocks*2)+4,starty,startx){
+    // dell'inizializzazione degli altri parametri se ne occupa il costruttore della supercalsse
+    this->block_height = row_blocks;
+    this->block_width = column_blocks;
+    this->clear();
+    this->draw(); // prende n_righe e n_colonne
 }
-void TetrisBoard::draw(int y0, int x0){
+void TetrisBoard::draw(){
     int y = 0; //nota y e x sono relativi alla vindow attuale
     int x = 0;
-    for(int i=0; i<20; i++){ // 20 righe
+    for(int i=0; i<block_height; i++){ // per ogni riga(std = 20)
         wmove(win,y,x); // mi sposto su nuova riga
         wprintw(win,"<!"); // e scrivo
 
-        for(int j=0; j<10; j++){ // 10 colonne (ogni colonna sono 2 caratteri)
+        for(int j=0; j<block_width; j++){ // per ogni colonna (std = 10) (ogni colonna sono 2 caratteri)
             wprintw(win,". "); //carattere "·" non va
         }
 
@@ -73,7 +74,7 @@ void TetrisBoard::draw(int y0, int x0){
     }
     wmove(win,y,x);
     wprintw(win,"  ");
-    for(int i=0; i<10; i++){
+    for(int i=0; i<block_height ; i++){
         wprintw(win,"\\/"); // disegno il fondo
     }
     wrefresh(win);

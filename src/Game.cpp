@@ -3,32 +3,37 @@
 
 #define COORY 1
 #define COORX 30
+#define BLOCKY 20
+#define BLOCKX 10
 
-Game::Game(): tetris_board(), scores(), next_tetromino(), game_over(false), score(0),best_score(0){
+//Game::Game(): tetris_board(), scores(), next_tetromino(), game_over(false), score(0),best_score(0){
     /* // equivalentemente:
     game_over = false;
     score = 0;
     best_score = 0;
     */
-}
+//}
 
-Game::Game(int best = 0){ //(chiamato quando )serve a inizializzare tutti i parametri(=variabili) della classe
+Game::Game(int a){ //(chiamato quando )serve a inizializzare tutti i parametri(=variabili) della classe
     
-    this->board1 = TetrisBoard(COORY,COORX);
+    
+    this->tetris_board = TetrisBoard(COORY,COORX,BLOCKY,BLOCKX);
 
-    this->scores = Board(1,3,3,17);
-    this->next = Board(6,6,5,9);
-    this->end = false;
+    this->scores = Board(3,17,1,3);
+    this->next_tetromino = Board(5,9,6,6);
+    this->game_over = false;
     //tetromino
     //next_tetromino
     this->score = 0;
-    this->best_score = best;
+    //this->best_score = apriFile(...);
 
+    //inizializzo finestra "scores"
     scores.print(0,0,"score: 0\n\nbest score: 0");
     scores.refresh();
-    next.addBorder('T','T');
-    next.print(0,0,"  NEXT:  ");
-    next.refresh();
+    //inizializzo finestra "next_tetromino"
+    next_tetromino.addBorder('T','T');
+    next_tetromino.print(0,0,"  NEXT:  ");
+    next_tetromino.refresh();
 }
 
 bool Game::isOver(){
