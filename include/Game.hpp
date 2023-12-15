@@ -18,7 +18,8 @@ class Game{
         Game(int a); // costruttore personalizzato
         bool isOver(); // ritorna true se il gioco è finito
         void endGame(); // imposta game_over a true (=finisce partita)
-        void processInput();
-        void updateState();
-        void redraw();
+        bool enoughSpace(int,int,int,int);
+        void processInput(); // TO DO
+        void updateState(); // TO DO
+        void redraw(); // TO DO
 };

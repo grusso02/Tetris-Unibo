@@ -74,7 +74,7 @@ void TetrisBoard::draw(){
     }
     wmove(win,y,x);
     wprintw(win,"  ");
-    for(int i=0; i<block_height ; i++){
+    for(int i=0; i<block_width ; i++){
         wprintw(win,"\\/"); // disegno il fondo
     }
     wrefresh(win);

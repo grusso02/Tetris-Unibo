@@ -1,8 +1,8 @@
 #include "../include/Game.hpp"
 #include "../include/common_include.h" //per ncurses e altro
 
-#define COORY 1
-#define COORX 30
+#define START_Y 1
+//#define COORX 30
 #define BLOCKY 20
 #define BLOCKX 10
 
@@ -18,8 +18,13 @@ Game::Game(int a){ //(chiamato quando )serve a inizializzare tutti i parametri(=
     //NOTA: se non prende almeno un input, il compilatore per qualche 
     //ragione lo tratta come un costruttore standard e ne ignora il contenuto?
     
-    this->tetris_board = TetrisBoard(COORY,COORX,BLOCKY,BLOCKX);
-    this->scores = Board(3,17,1,3);
+    // trovo dimensioni terminale
+    int max_y,max_x;
+    getmaxyx(stdscr,max_y,max_x);
+
+    // inizializzazione
+    this->tetris_board = TetrisBoard(START_Y,max_x/2,BLOCKY,BLOCKX); // inizierà a metà schermo
+    this->scores = Board(3,17,1,3); // altezza,larghezza,starty,startx
     this->next_tetromino = Board(5,9,6,6);
     this->game_over = false;
     //tetromino
@@ -34,6 +39,21 @@ Game::Game(int a){ //(chiamato quando )serve a inizializzare tutti i parametri(=
     next_tetromino.addBorder('T','T');
     next_tetromino.print(0,0,"  NEXT:  ");
     next_tetromino.refresh();
+
+    //controllo dimensioni stdscr (bozza)
+    if(enoughSpace(tetris_board.getHeight()+START_Y, tetris_board.getWidth()+(max_x/2), max_y, max_x) == false){
+        clear();
+        mvprintw(0,0,"Allarga la finestra, grazie");
+        refresh();
+        return;
+    }// nota:per adesso non considera dimensioni scores e next_tetromino;
+}
+
+bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x){
+    if(needed_y > max_y || needed_x > max_x)
+        return false;
+    else 
+        return true;
 }
 
 bool Game::isOver(){
