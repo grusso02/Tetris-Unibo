@@ -10,9 +10,6 @@ struct Tetromino {
     int  orientation;
     int* data;
     char empty_cell[3];
-
-    Tetromino() {}
-    ~Tetromino() {}
 };
 
 } // namespace tetris
