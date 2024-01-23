@@ -14,26 +14,26 @@
 using namespace std;
 
 tetris::Tetromino get_piece() {
-    static int o_piece[] = {1, 0x1256};
-    static int s_piece[] = {2, 0x4512, 0x0459};
-    static int z_piece[] = {2, 0x0156, 0x1548};
-    static int t_piece[] = {4, 0x1456, 0x1596, 0x4569, 0x4159};
-    static int l_piece[] = {4, 0x159a, 0x8456, 0x0159, 0x2654};
-    static int j_piece[] = {4, 0x1598, 0x0456, 0x2159, 0xa654};
-    static int i_piece[] = {2, 0x159d, 0x4567};
+    static int o_piece[] = {1, 0x5410};
+    static int s_piece[] = {2, 0x4521, 0x9540};
+    static int z_piece[] = {2, 0x6510, 0x8451};
+    static int t_piece[] = {4, 0x4561, 0x5961, 0x9654, 0x4951};
+    static int l_piece[] = {4, 0x4562, 0x59A1, 0x8654, 0x9510};
+    static int j_piece[] = {4, 0x4560, 0x5921, 0xA654, 0x8951};
+    static int i_piece[] = {2, 0x7654, 0xEA62};
 
     static int* piece_data[] = {
         o_piece, s_piece, z_piece, t_piece, l_piece, j_piece, i_piece,
     };
     static int piece_data_len = 7;
-    int        next_piece_random_index = rand() % piece_data_len;
+    int        next_piece_random_index = random() % piece_data_len;
     cout << next_piece_random_index << endl;
     int* next_piece_data = piece_data[next_piece_random_index];
 
     tetris::Tetromino next_piece;
 
-    next_piece.origin_x = 5;
-    next_piece.origin_y = 5;
+    next_piece.origin_x = 0;
+    next_piece.origin_y = 0;
     next_piece.x = 0;
     next_piece.y = 0;
 
@@ -41,7 +41,7 @@ tetris::Tetromino get_piece() {
                       1; // Facnedo + 1 passa al primo valore delle coordinate
                          // dopo il numero di orientamenti possibili
     next_piece.symmetry = *next_piece_data;
-    next_piece.orientation = rand() % next_piece.symmetry;
+    next_piece.orientation = random() % next_piece.symmetry;
     // strcpy(next_piece.empty_cell, NEXT_EMPTY_CELL);
 
     return next_piece;
@@ -80,7 +80,7 @@ int main() {
     tetris::Tetromino next_piece;
     tetris::Tetromino current_piece;
 
-    srand((unsigned)time(0));
+    srandom(time(NULL));
 
     initscr();
 
