@@ -7,9 +7,12 @@
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
+#include "include/common_include.h"
 
 #define NEXT_EMPTY_CELL "  "
 #define PLAYFIELD_EMPTY_CELL " ."
+#define HEIGHT 50
+#define WIDTH 50
 
 using namespace std;
 
@@ -84,6 +87,8 @@ int main() {
 
     initscr();
 
+Game game1(1);
+
     next_piece = get_piece();
 
     clear();
@@ -92,5 +97,4 @@ int main() {
 
     getch();
     endwin();
-    return 0;
 }
