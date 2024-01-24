@@ -1,36 +1,73 @@
+#pragma once
 
-#pragma once // per evitare ridefinizione della classe Board -> errore compilazione
+#include "Tetromino.hpp"
+#include "Time.hpp"
 #include <ncurses.h>
 
-// Board è una classe che serve solo a gestire le WINDOW di ncurses
+namespace tetris {
 class Board {
-    protected:
-        // int y0, x0; non dovrebbero servire MAI
-        int height, width;
-        WINDOW* win;
+  private:
+    WINDOW* board;
+    int     height, width, start_row, start_col;
+    int     timeout;
 
-    public:
-        Board();
-        Board(int num_rows, int num_columns, int start_y, int start_x);
-        void refresh(); // volendo si può inserire dentro print
-        void clear();
-        bool addchar(int y, int x, char c);
-        bool print(int y, int x,const char *c); //ritorna false se fuori range window
-        char getChar(int y, int x);
-        void addBorder(char chary, char charx);
-        int getHeight();
-        int getWidth();
-        //char getInput();
-};
+  public:
+    Board() : height(0), width(0) {}
 
-//TetrisBoard è una specializzazione di Board che si occupa solo di WINDOW create per un campo da tetramini
-class TetrisBoard: public Board { //di dimensioni prefissate per "campo da tetris"
-    protected:
-        int block_height;
-        int block_width;
-    public:
-        TetrisBoard();
-        TetrisBoard(int starty, int startx, int block_height, int vlock_width);
-        void draw();
-        bool cancelCell(int y, int x);
+    Board(int h, int w, int speed) : height(h), width(w) {
+        int yMax, xMax;
+        getmaxyx(stdscr, yMax, xMax);
+        this->start_row = ((yMax / 2) - (this->height / 2));
+        this->start_col = ((xMax / 2) - (this->width / 2));
+        this->timeout = speed;
+        this->board = newwin(height, width, start_row, start_col);
+        keypad(board, true);
+        setTimeout(speed);
+    };
+
+    int getHeight() { return height; }
+
+    int getWidth() { return width; }
+
+    void initialize() {
+        clear();
+        refresh();
+    }
+
+    void addBorder() { box(board, 0, 0); }
+
+    void refresh() { wrefresh(board); }
+
+    void clear() {
+        wclear(board);
+        addBorder();
+    }
+
+    void draw_piece(tetris::Tetromino piece) {
+        int* cells = piece.get_cells();
+        int  x = 0;
+        int  y = 0;
+
+        for (int i = 0; i < 4; i++) {
+            x = cells[2 * i] * 2 + piece.origin_x;
+            y = cells[2 * i + 1] + piece.origin_y;
+            mvwprintw(board, y, x + piece.z, "[]");
+        }
+    }
+
+    int getInput() {
+        chtype input = wgetch(board);
+
+        return input;
+    }
+
+    chtype getCharAt(int y, int x) { return (mvwinch(board, y, x)); }
+
+    int  getTimeout() { return timeout; }
+    void setTimeout(int speed) { wtimeout(board, speed); }
+
+    int getStartRow() { return start_row; }
+
+    int getStartCol() { return start_col; }
 };
+} // namespace tetris
