@@ -27,6 +27,26 @@ Game::Game(int a){ //(chiamato quando )serve a inizializzare tutti i parametri(=
     this->scores = Board(3,17,1,3); // altezza,larghezza,starty,startx
     this->next_tetromino = Board(5,9,6,6);
     this->game_over = false;
+
+    /*
+    //test inserimento blocco e eliminaione riga
+    this->tetris_board.addBlock(5,0);
+    this->tetris_board.addBlock(5,1);
+    this->tetris_board.addBlock(5,2);
+    this->tetris_board.addBlock(5,3);
+    this->tetris_board.addBlock(5,4);
+    this->tetris_board.addBlock(5,5);
+    this->tetris_board.addBlock(5,6);
+    this->tetris_board.addBlock(5,7);
+    this->tetris_board.addBlock(5,8);
+    this->tetris_board.addBlock(5,9);
+    this->tetris_board.addBlock(5,10);
+    this->tetris_board.addBlock(5,11);
+    this->tetris_board.addBlock(4,4);
+    this->tetris_board.destroyRow(5);
+    this->tetris_board.refresh();
+    */
+
     //tetromino
     //next_tetromino
     this->score = 0;
