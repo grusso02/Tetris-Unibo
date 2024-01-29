@@ -1,23 +1,28 @@
 #include "include/common_include.h"
 #include <iostream>
-#define HEIGHT 50
-#define WIDTH 50
 
 using namespace std;
 
+#define N 20
+#define HEIGHT N
+#define WIDTH N * 1.5
+
+using namespace std;
 
 int main() {
+    initscr();
+    refresh();
+    noecho();
+    curs_set(0);
 
-    initscr(); // Start curses mode
+    Game game(HEIGHT, WIDTH);
 
-    Game game1(1);
-    while(true){};
-    //while( game1.isOver() == false ){
-        // game1.processInput(); // riceve l'input dall'utente(se inserito)
-        // game1.updateState(); // agisce in base all'input ricevuto
-        // game1.redraw(); // disegna cambiamenti sulla window
-    //}
+    while (!game.isOver() ) {
+        game.processInput();
+        game.updateState();
+        game.redraw();
+    }
 
-    endwin(); //End curses mode
+    endwin();
     return 0;
 }

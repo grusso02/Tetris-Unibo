@@ -6,9 +6,9 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} main.cpp
-                    src/example.cpp
                     src/Board.cpp
-                    src/Game.cpp)
+                    src/Game.cpp
+                    src/Tetromino.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})
