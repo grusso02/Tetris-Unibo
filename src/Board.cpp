@@ -63,7 +63,7 @@ int Board::getWidth() { return this->width; }
 TetrisBoard::TetrisBoard() {}
 TetrisBoard::TetrisBoard(int starty, int startx, int row_blocks,
                          int column_blocks)
-    : Board(row_blocks + 1, (column_blocks * 2) + 4, starty, startx) {
+    : Board(0, 30, starty, startx) {
     // dell'inizializzazione degli altri parametri se ne occupa il costruttore
     // della supercalsse
     this->block_height = row_blocks;
@@ -71,6 +71,7 @@ TetrisBoard::TetrisBoard(int starty, int startx, int row_blocks,
     this->clear();
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
+    keypad(this->win, true);
 }
 void TetrisBoard::draw() {
     int y = 0; // nota y e x sono relativi alla vindow attuale

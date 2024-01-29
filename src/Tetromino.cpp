@@ -19,7 +19,7 @@ void Tetromino::get_piece(int screen_width) {
     type_name = static_cast<Piece>(next_piece_random_index);
     int* next_piece_data = piece_data[next_piece_random_index];
 
-    origin_x = (screen_width - 4) / 2;
+    origin_x = (screen_width - 6) / 2;
     origin_y = 1;
     x = origin_x / 2 + 1;
     y = 0;

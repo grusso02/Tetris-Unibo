@@ -2,6 +2,7 @@
 #include "../include/common_include.h" //per ncurses e altro
 #include <ctime>
 #include <iostream>
+#include <limits.h>
 
 #define START_Y 1
 // #define COORX 30
@@ -28,30 +29,28 @@ Game::Game(int height,
     getmaxyx(stdscr, max_y, max_x);
 
     // inizializzazione
-    this->tetris_board = TetrisBoard(height, width, BLOCKY,
-                                     BLOCKX); // inizierà a metà schermo
-    this->scores = Board(3, 17, 1, 3);        // altezza,larghezza,starty,startx
+    this->tetris_board = TetrisBoard(0, 20, height,
+                                     width); // inizierà a metà schermo
+    this->scores = Board(3, 17, 1, 3);       // altezza,larghezza,starty,startx
     this->next_tetromino = Board(5, 9, 6, 6);
     this->game_over = false;
 
-    /*
-    //test inserimento blocco e eliminaione riga
-    this->tetris_board.addBlock(5,0);
-    this->tetris_board.addBlock(5,1);
-    this->tetris_board.addBlock(5,2);
-    this->tetris_board.addBlock(5,3);
-    this->tetris_board.addBlock(5,4);
-    this->tetris_board.addBlock(5,5);
-    this->tetris_board.addBlock(5,6);
-    this->tetris_board.addBlock(5,7);
-    this->tetris_board.addBlock(5,8);
-    this->tetris_board.addBlock(5,9);
-    this->tetris_board.addBlock(5,10);
-    this->tetris_board.addBlock(5,11);
-    this->tetris_board.addBlock(4,4);
-    this->tetris_board.destroyRow(5);
+    // test inserimento blocco e eliminaione riga
+    this->tetris_board.addBlock(5, 0);
+    this->tetris_board.addBlock(5, 1);
+    this->tetris_board.addBlock(5, 2);
+    this->tetris_board.addBlock(5, 3);
+    this->tetris_board.addBlock(5, 4);
+    this->tetris_board.addBlock(5, 5);
+    this->tetris_board.addBlock(5, 6);
+    this->tetris_board.addBlock(5, 7);
+    this->tetris_board.addBlock(5, 8);
+    this->tetris_board.addBlock(5, 9);
+    this->tetris_board.addBlock(5, 10);
+    this->tetris_board.addBlock(5, 11);
+    this->tetris_board.addBlock(4, 4);
+    // this->tetris_board.destroyRow(5);
     this->tetris_board.refresh();
-    */
 
     // tetromino
     // next_tetromino
