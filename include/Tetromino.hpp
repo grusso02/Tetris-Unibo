@@ -13,7 +13,7 @@ class Tetromino {
     int   origin_y;
     int   x;
     int   y;
-    int   z;
+    int   z; // Variabile contatore
     int   symmetry;
     int   orientation;
     Piece type_name;

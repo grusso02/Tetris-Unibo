@@ -63,6 +63,7 @@ class Game {
 
     void updateState() {
         checkCollision();
+        //processFallenPiece();
         board.clear();
         board.draw_piece(tetromino);
     }

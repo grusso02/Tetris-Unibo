@@ -45,13 +45,13 @@ class Board {
 
     void draw_piece(tetris::Tetromino piece) {
         int* cells = piece.get_cells();
-        int  x = 0;
-        int  y = 0;
+        int  print_x = 0;
+        int  print_y = 0;
 
         for (int i = 0; i < 4; i++) {
-            x = cells[2 * i] * 2 + piece.origin_x;
-            y = cells[2 * i + 1] + piece.origin_y;
-            mvwprintw(board, y, x + piece.z, "[]");
+            print_x = cells[2 * i] * 2 + piece.origin_x;
+            print_y = cells[2 * i + 1] + piece.origin_y;
+            mvwprintw(board, print_y, print_x + piece.z, "[]");
         }
     }
 
