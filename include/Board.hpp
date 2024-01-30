@@ -14,17 +14,17 @@ class Board {
 
   public:
     Board();
-    Board(int num_rows, int num_columns, int start_y, int start_x);
-    void refresh(); // volendo si può inserire dentro print
-    void clear();
-    bool addChar(int y, int x, char c);
-    bool delChar(int y, int x);
-    bool print(int y, int x,
-               const char* c); // ritorna false se fuori range window
+    Board(int start_y, int start_x, int height, int width);
+    void   refresh(); // volendo si può inserire dentro print
+    void   clear();
+    bool   addChar(int y, int x, char c);
+    bool   delChar(int y, int x);
+    bool   print(int y, int x,
+                 const char* c); // ritorna false se fuori range window
     chtype getChar(int y, int x);
-    void addBorder(char chary, char charx);
-    int  getHeight();
-    int  getWidth();
+    void   addBorder(char chary, char charx);
+    int    getHeight();
+    int    getWidth();
     // char getInput();
 };
 

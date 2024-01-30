@@ -29,12 +29,13 @@ Game::Game(int height,
     getmaxyx(stdscr, max_y, max_x);
 
     // inizializzazione
-    this->tetris_board = TetrisBoard(0, 20, height,
+    this->tetris_board = TetrisBoard(START_Y, max_x / 2, height,
                                      width); // inizierà a metà schermo
-    this->scores = Board(3, 17, 1, 3);       // altezza,larghezza,starty,startx
-    this->next_tetromino = Board(5, 9, 6, 6);
+    this->scores = Board(1, 3, 3, 17);       // altezza,larghezza,starty,startx
+    this->next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
 
+    /*
     // test inserimento blocco e eliminaione riga
     this->tetris_board.addBlock(5, 0);
     this->tetris_board.addBlock(5, 1);
@@ -51,6 +52,7 @@ Game::Game(int height,
     this->tetris_board.addBlock(4, 4);
     // this->tetris_board.destroyRow(5);
     this->tetris_board.refresh();
+    */
 
     // tetromino
     // next_tetromino

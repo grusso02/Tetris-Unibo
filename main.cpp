@@ -5,7 +5,7 @@ using namespace std;
 
 #define N 20
 #define HEIGHT N
-#define WIDTH N * 1.5
+#define WIDTH N // blocchi = 1/2 dell'altezza, MA blocchi = * 2 caratteri
 
 using namespace std;
 

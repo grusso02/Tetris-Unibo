@@ -3,11 +3,10 @@
 
 Board::Board() {}
 
-Board::Board(int n_rows, int n_columns, int start_y,
-             int start_x) { // int starty, int startx utili?
+Board::Board(int start_y, int start_x, int height, int width) {
     // inizializzo
-    this->height = n_rows;
-    this->width = n_columns;
+    this->height = height;
+    this->width = width;
     this->win = newwin(height, width, start_y, start_x);
 
     this->border_width = 0;
@@ -61,20 +60,19 @@ int Board::getWidth() { return this->width; }
 //***********SOTTOCLASSE
 
 TetrisBoard::TetrisBoard() {}
-TetrisBoard::TetrisBoard(int starty, int startx, int row_blocks,
-                         int column_blocks)
-    : Board(0, 30, starty, startx) {
+TetrisBoard::TetrisBoard(int starty, int startx, int height, int width)
+    : Board(starty, startx, height + 1, width + 4) { // spazio per bordo
     // dell'inizializzazione degli altri parametri se ne occupa il costruttore
     // della supercalsse
-    this->block_height = row_blocks;
-    this->block_width = column_blocks;
+    this->block_height = height;
+    this->block_width = width / 2;
     this->clear();
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
     keypad(this->win, true);
 }
 void TetrisBoard::draw() {
-    int y = 0; // nota y e x sono relativi alla vindow attuale
+    int y = 0; // nota y e x sono relativi alla window attuale
     int x = 0;
     for (int i = 0; i < block_height; i++) { // per ogni riga(std = 20)
         wmove(win, y, x);                    // mi sposto su nuova riga
