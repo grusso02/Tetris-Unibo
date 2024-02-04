@@ -18,23 +18,18 @@ best_score = 0;
 */
 //}
 
-Game::Game(int height,
-           int width) { //(chiamato quando )serve a inizializzare tutti i
-                        // parametri(=variabili) della classe
-    // NOTA: se non prende almeno un input, il compilatore per qualche
-    // ragione lo tratta come un costruttore standard e ne ignora il contenuto?
+Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tutti i parametri(=variabili) della classe
 
     // trovo dimensioni terminale
     int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
 
     // inizializzazione
-    this->tetris_board = TetrisBoard(START_Y, max_x / 2, height,
-                                     width); // inizierà a metà schermo
+    this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width); // inizierà a metà schermo
     this->scores = Board(1, 3, 3, 17);       // altezza,larghezza,starty,startx
     this->next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
-
+    this->tetris_board.addBlock(5, 0);
     /*
     // test inserimento blocco e eliminaione riga
     this->tetris_board.addBlock(5, 0);
@@ -68,9 +63,7 @@ Game::Game(int height,
     next_tetromino.refresh();
 
     // controllo dimensioni stdscr (bozza)
-    if (enoughSpace(tetris_board.getHeight() + START_Y,
-                    tetris_board.getWidth() + (max_x / 2), max_y,
-                    max_x) == false) {
+    if ( enoughSpace(tetris_board.getHeight() + START_Y, tetris_board.getWidth() + (max_x / 2), max_y, max_x) == false) {
         clear();
         mvprintw(0, 0, "Allarga la finestra, grazie");
         refresh();
@@ -89,21 +82,16 @@ bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
         return true;
 }
 
-void Game::processInput() {
-    tetromino.move(DOWN);
+Moves Game::processInput() {
     switch (tetris_board.getInput()) {
     case KEY_UP:
-        tetromino.move(ROTATE);
-        break;
+        return (ROTATE);
     case KEY_DOWN:
-        tetromino.move(DOWN);
-        break;
+        return (DOWN);
     case KEY_RIGHT:
-        tetromino.move(RIGHT);
-        break;
+        return (RIGHT);
     case KEY_LEFT:
-        tetromino.move(LEFT);
-        break;
+        return (LEFT);
         /*     case 'p': {
                 tetris_board.setTimeout(-1);
                 while (tetris_board.getInput() != 'p')
@@ -120,9 +108,10 @@ void Game::processInput() {
 }
 
 void Game::updateState() {
-    checkCollision();
-    // processFallenPiece();
-    tetris_board.clear();
+    Moves m = processInput();
+    tetris_board.delete_piece(tetromino); // PRIMA di attuare modifiche cancello vecchio pezzo
+    tetromino.moveTurn(m);
+    checkCollision(); // corregge possibili valori illegali nella posizione tetromino
     tetris_board.draw_piece(tetromino);
 }
 
@@ -149,15 +138,14 @@ void Game::checkCollision() {
     }
 
     mvprintw(1, 7, "%d", x_min);
-    if ((x_min == 0 && tetromino.x == 0) || (x_min == 1 && tetromino.x == -1) ||
-        (x_min == 2 && tetromino.x == -2)) {
+
+    if ((x_min == 0 && tetromino.x == 0) || (x_min == 1 && tetromino.x == -1) || (x_min == 2 && tetromino.x == -2)) {
         tetromino.x++;
         tetromino.z += 2;
     }
 
     if (tetromino.type_name == I && x_min == 0 && tetromino.x == -1)
-        tetromino.orientation =
-            (tetromino.orientation + 1) % tetromino.symmetry;
+        tetromino.orientation = (tetromino.orientation + 1) % tetromino.symmetry;
 }
 
 bool Game::isOver() { return this->game_over; }

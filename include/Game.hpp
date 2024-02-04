@@ -23,7 +23,7 @@ class Game {
     bool isOver();               // ritorna true se il gioco è finito
     void endGame();              // imposta game_over a true (=finisce partita)
     bool enoughSpace(int, int, int, int);
-    void processInput();
+    Moves processInput();
     void updateState();
     void redraw();
     void checkCollision();

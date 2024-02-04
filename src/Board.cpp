@@ -152,6 +152,18 @@ bool TetrisBoard::destroyRow(int y) {
         return false;
 }
 
+void TetrisBoard::delete_piece(Tetromino piece) {
+    int* cells = piece.get_cells();
+    int  print_x = 0;
+    int  print_y = 0;
+
+    for (int i = 0; i < 4; i++) {
+        print_x = cells[2 * i] * 2 + piece.origin_x;
+        print_y = cells[2 * i + 1] + piece.origin_y;
+        mvwprintw(win, print_y, print_x + piece.z, ". ");
+    }
+}
+
 void TetrisBoard::draw_piece(Tetromino piece) {
     int* cells = piece.get_cells();
     int  print_x = 0;

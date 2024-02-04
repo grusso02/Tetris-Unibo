@@ -19,8 +19,7 @@ class Board {
     void   clear();
     bool   addChar(int y, int x, char c);
     bool   delChar(int y, int x);
-    bool   print(int y, int x,
-                 const char* c); // ritorna false se fuori range window
+    bool   print(int y, int x, const char* c); // ritorna false se fuori range window
     chtype getChar(int y, int x);
     void   addBorder(char chary, char charx);
     int    getHeight();
@@ -45,8 +44,8 @@ class TetrisBoard
     bool delBlock(int y, int x);
     bool isBlock(int y, int x);
     bool checkRow(int y); // controlla se la riga è completa
-    bool destroyRow(
-        int y); // distrugge riga se completa e abbassa tutte quelle sopra
-    void draw_piece(Tetromino piece);
+    bool destroyRow(int y); // distrugge riga se completa e abbassa tutte quelle sopra   
+    void delete_piece(Tetromino piece);
+    void draw_piece(Tetromino piece); 
     int  getInput();
 };

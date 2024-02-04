@@ -28,4 +28,5 @@ class Tetromino {
     int* get_cells();
 
     void move(Moves move);
+    void moveTurn(Moves move);
 };
