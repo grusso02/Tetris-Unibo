@@ -70,6 +70,7 @@ TetrisBoard::TetrisBoard(int starty, int startx, int height, int width)
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
     keypad(this->win, true);
+    wtimeout(win,500);
 }
 void TetrisBoard::draw() {
     int y = 0; // nota y e x sono relativi alla window attuale
