@@ -25,7 +25,7 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
     getmaxyx(stdscr, max_y, max_x);
 
     // inizializzazione
-    this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width); // inizierà a metà schermo
+    this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width, 500); // inizierà a metà schermo
     this->scores = Board(1, 3, 3, 17);       // altezza,larghezza,starty,startx
     this->next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
