@@ -60,7 +60,8 @@ int Board::getWidth() { return this->width; }
 //***********SOTTOCLASSE
 
 TetrisBoard::TetrisBoard() {}
-TetrisBoard::TetrisBoard(int starty, int startx, int height, int width)
+TetrisBoard::TetrisBoard(int starty, int startx, int height, int width,
+                         int rate)
     : Board(starty, startx, height + 1, width + 4) { // spazio per bordo
     // dell'inizializzazione degli altri parametri se ne occupa il costruttore
     // della supercalsse
@@ -70,6 +71,7 @@ TetrisBoard::TetrisBoard(int starty, int startx, int height, int width)
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
     keypad(this->win, true);
+    wtimeout(this->win, rate);
 }
 void TetrisBoard::draw() {
     int y = 0; // nota y e x sono relativi alla window attuale
