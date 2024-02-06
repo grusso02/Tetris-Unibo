@@ -76,3 +76,19 @@ void Tetromino::moveTurn(Moves move){
     this->move(DOWN);
     this->move(move);
 }
+
+bool Tetromino::belongs(int check_y, int check_x){
+    int* cells = get_cells();
+    int  x_i = 0;
+    int  y_i = 0;
+    bool flag = false;
+
+    for (int i = 0; i < 4; i++) {
+        x_i = cells[2 * i] * 2 + origin_x;
+        y_i = cells[2 * i + 1] + origin_y;
+        if( x_i + this->z == check_x && y_i == check_y) // controlla se appartiene -> nel caso ho risolto
+            flag = true;
+    }
+    //return false;
+    return flag;
+}

@@ -18,7 +18,6 @@ int main() {
     Game game(HEIGHT, WIDTH);
 
     while (!game.isOver()) {
-        //game.processInput();
         game.updateState();
         game.redraw();
     }

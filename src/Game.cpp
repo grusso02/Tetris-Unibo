@@ -29,7 +29,9 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
     this->scores = Board(1, 3, 3, 17);       // altezza,larghezza,starty,startx
     this->next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
-    this->tetris_board.addBlock(5, 0);
+
+
+    this->tetris_board.addBlock(10, 0);
     /*
     // test inserimento blocco e eliminaione riga
     this->tetris_board.addBlock(5, 0);
@@ -86,8 +88,6 @@ Moves Game::processInput() {
     switch (tetris_board.getInput()) {
     case KEY_UP:
         return (ROTATE);
-    case KEY_DOWN:
-        return (DOWN);
     case KEY_RIGHT:
         return (RIGHT);
     case KEY_LEFT:
@@ -110,7 +110,11 @@ Moves Game::processInput() {
 void Game::updateState() {
     Moves m = processInput();
     tetris_board.delete_piece(tetromino); // PRIMA di attuare modifiche cancello vecchio pezzo
-    tetromino.moveTurn(m);
+    if(check_piece(tetromino) == false) // controlla se SOTTO c'è un pezzo
+        tetromino.moveTurn(m);
+    else{
+        //passa al prossimo tetromino
+    }
     checkCollision(); // corregge possibili valori illegali nella posizione tetromino
     tetris_board.draw_piece(tetromino);
 }
@@ -146,6 +150,28 @@ void Game::checkCollision() {
 
     if (tetromino.type_name == I && x_min == 0 && tetromino.x == -1)
         tetromino.orientation = (tetromino.orientation + 1) % tetromino.symmetry;
+}
+/*
+bool Game::check_block(int y, int x){
+    if( tetris_board.isBlock(y, (x-2)*2) || y > tetris_board.lastYBlock() )
+        return true;
+    else
+        return false;
+}*/
+
+bool Game::check_piece(Tetromino piece) {
+    int* cells = piece.get_cells();
+    int  x = 0;
+    int  y = 0;
+    bool flag = false;
+
+    for (int i = 0; i < 4; i++) {
+        x = cells[2 * i] * 2 + piece.origin_x;
+        y = cells[2 * i + 1] + piece.origin_y;
+        if(tetris_board.getChar(y+1,x+piece.z) == '[' && piece.belongs(y+1,x+piece.z)==false ) // controlla se ha pezzo SOTTO
+            flag = true;
+    }
+    return flag;
 }
 
 bool Game::isOver() { return this->game_over; }

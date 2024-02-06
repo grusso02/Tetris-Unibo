@@ -27,4 +27,5 @@ class Game {
     void updateState();
     void redraw();
     void checkCollision();
+    bool check_piece(Tetromino piece);
 };
