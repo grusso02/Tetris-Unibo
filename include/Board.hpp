@@ -40,6 +40,7 @@ class TetrisBoard
     TetrisBoard();
     TetrisBoard(int starty, int startx, int block_height, int block_width,
                 int rate);
+    void clear();
     void draw();
     bool addBlock(int y, int x); // aggiunge un blocca usando indici da 0 a
                                  // block_height-1 e da 0 a block_width-1

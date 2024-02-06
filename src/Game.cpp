@@ -90,12 +90,11 @@ bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
 }
 
 void Game::processInput() {
-    tetromino.move(DOWN);
     switch (tetris_board.getInput()) {
     case KEY_UP:
         tetromino.move(ROTATE);
         break;
-    case KEY_DOWN:
+    case ERR:
         tetromino.move(DOWN);
         break;
     case KEY_RIGHT:
@@ -121,7 +120,7 @@ void Game::processInput() {
 
 void Game::updateState() {
     checkCollision();
-    // processFallenPiece();
+    //processFallenPiece();
     tetris_board.clear();
     tetris_board.draw_piece(tetromino);
 }
@@ -141,9 +140,9 @@ void Game::checkCollision() {
 
     mvprintw(0, 7, "%d", x_max);
 
-    if ((x_max == 1 && tetromino.x == (tetromino.origin_x + 1)) ||
-        (x_max == 2 && tetromino.x == tetromino.origin_x) ||
-        (x_max == 3 && tetromino.x == (tetromino.origin_x - 1))) {
+    if ((x_max == 1 && tetromino.x == (tetromino.origin_x)) ||
+        (x_max == 2 && tetromino.x == tetromino.origin_x - 1) ||
+        (x_max == 3 && tetromino.x == (tetromino.origin_x - 2))) {
         tetromino.x--;
         tetromino.z -= 2;
     }

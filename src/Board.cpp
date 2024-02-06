@@ -73,6 +73,12 @@ TetrisBoard::TetrisBoard(int starty, int startx, int height, int width,
     keypad(this->win, true);
     wtimeout(this->win, rate);
 }
+
+void TetrisBoard::clear() {
+    wclear(this->win);
+    draw();
+}
+
 void TetrisBoard::draw() {
     int y = 0; // nota y e x sono relativi alla window attuale
     int x = 0;
@@ -99,6 +105,7 @@ void TetrisBoard::draw() {
     wrefresh(win);
     this->border_width = 2; // "<!"
 }
+
 bool TetrisBoard::addBlock(int y, int x) {
     x = x * 2 + this->border_width;
     if (y < this->height && x < this->width - this->border_width) {
@@ -108,6 +115,7 @@ bool TetrisBoard::addBlock(int y, int x) {
     } else
         return false;
 }
+
 bool TetrisBoard::delBlock(int y, int x) {
     x = x * 2 + this->border_width;
     if (y < this->height && x < this->width - this->border_width) {
@@ -117,6 +125,7 @@ bool TetrisBoard::delBlock(int y, int x) {
     } else
         return false;
 }
+
 bool TetrisBoard::isBlock(int y, int x) {
     x = x * 2 + this->border_width;
     if (y < this->height && x < this->width - this->border_width) {
@@ -126,6 +135,7 @@ bool TetrisBoard::isBlock(int y, int x) {
     }
     return false;
 }
+
 bool TetrisBoard::checkRow(int y) {
     bool full_row = true;
     int  i = this->border_width;
@@ -136,6 +146,7 @@ bool TetrisBoard::checkRow(int y) {
     }
     return full_row;
 }
+
 bool TetrisBoard::destroyRow(int y) {
     if (this->checkRow(y) == true) {
         // distruggo riga
