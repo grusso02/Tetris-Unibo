@@ -163,15 +163,18 @@ bool Game::check_piece(Tetromino piece) {
     int* cells = piece.get_cells();
     int  x = 0;
     int  y = 0;
-    bool flag = false;
+    bool flag_tetromino = false;
+    bool flag_bottom = false;
 
     for (int i = 0; i < 4; i++) {
         x = cells[2 * i] * 2 + piece.origin_x;
         y = cells[2 * i + 1] + piece.origin_y;
         if(tetris_board.getChar(y+1,x+piece.z) == '[' && piece.belongs(y+1,x+piece.z)==false ) // controlla se ha pezzo SOTTO
-            flag = true;
+            flag_tetromino = true;
+        if(y+1 >= tetris_board.lastYBlock())
+            flag_bottom = true;
     }
-    return flag;
+    return (flag_tetromino || flag_bottom);
 }
 
 bool Game::isOver() { return this->game_over; }
