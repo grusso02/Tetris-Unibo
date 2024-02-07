@@ -77,14 +77,7 @@ Moves Game::processInput() {
     case KEY_LEFT:
         return (LEFT);
     case ' ':
-        return (DOWN);
-        /*     case 'p': {
-                tetris_board.setTimeout(-1);
-                while (tetris_board.getInput() != 'p')
-                    ;
-                tetris_board.setTimeout(tetris_board.getTimeout());
-                break;
-            } */
+        return (FALL);
     case 'e':
         endGame();
         break;
@@ -99,14 +92,18 @@ void Game::updateState() {
     if (check_piece() == false) { // controlla se SOTTO c'è un pezzo o il fondo
         delete_piece(
             tetromino); // PRIMA di attuare modifiche cancello vecchio pezzo
-        tetromino.moveTurn(m);
+        if (m == FALL)
+            while (check_piece() != true)
+                tetromino.move(DOWN);
+        else
+            tetromino.move(m);
     } else {
         this->tetromino = next_tetromino;
         this->next_tetromino = Tetromino(tetris_board.getWidth());
     }
 
     checkCollision(m); // corregge possibili valori illegali nella posizione
-                      // tetromino
+                       // tetromino
     draw_piece(tetromino);
 
     // eliminare righe piene(beta)
@@ -158,7 +155,7 @@ void Game::checkCollision(Moves m) {
             tetromino.x--;
             tetromino.z -= 2;
         }
-    
+
         // Collisione tetromino sinistra
         if (m == LEFT && tetris_board.getChar(y, x + tetromino.z + 1) == ']') {
             tetromino.x++;
