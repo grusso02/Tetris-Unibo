@@ -32,12 +32,11 @@ class Game {
     void redraw() { board.refresh(); }
 
     void processInput() {
-        tetromino.move(DOWN);
         switch (board.getInput()) {
         case KEY_UP:
             tetromino.move(ROTATE);
             break;
-        case KEY_DOWN:
+        case ERR:
             tetromino.move(DOWN);
             break;
         case KEY_RIGHT:
@@ -63,9 +62,31 @@ class Game {
 
     void updateState() {
         checkCollision();
-        //processFallenPiece();
+        checkFloor();
         board.clear();
         board.draw_piece(tetromino);
+    }
+
+    void checkFloor() {
+        int* cells = tetromino.get_cells();
+        int  y_max = 0;
+        int  y_min = INT_MAX;
+
+        for (int i = 0; i < 4; i++) {
+            if (cells[2 * i + 1] > y_max)
+                y_max = cells[2 * i + 1];
+            if (cells[2 * i + 1] < y_min)
+                y_min = cells[2 * i + 1];
+        }
+
+        mvprintw(5, 0, "%d", tetromino.origin_y);
+        mvprintw(6, 0, "%d", tetromino.y);
+        mvprintw(7, 0, "%d", board.getWidth());
+        refresh();
+
+        if (tetromino.y == 10) {
+            this->tetromino = Tetromino(board.getWidth());
+        }
     }
 
     void checkCollision() {
