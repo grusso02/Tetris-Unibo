@@ -60,18 +60,15 @@ int Board::getWidth() { return this->width; }
 //***********SOTTOCLASSE
 
 TetrisBoard::TetrisBoard() {}
-TetrisBoard::TetrisBoard(int starty, int startx, int height, int width,
-                         int rate)
-    : Board(starty, startx, height + 1, width + 4) { // spazio per bordo
-    // dell'inizializzazione degli altri parametri se ne occupa il costruttore
-    // della supercalsse
-    this->block_height = height;
+TetrisBoard::TetrisBoard(int starty, int startx, int height, int width, int rate): Board(starty, startx, height + 1, width + 4) { // spazio per bordo
+    this->border_width = 2; 
+    this->block_height = height - 1; // 1 = fondo 
     this->block_width = width / 2;
     this->clear();
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
     keypad(this->win, true);
-    wtimeout(this->win, rate);
+    wtimeout(win,rate);
 }
 
 void TetrisBoard::clear() {
@@ -103,7 +100,6 @@ void TetrisBoard::draw() {
         wprintw(win, "\\/"); // disegno il fondo
     }
     wrefresh(win);
-    this->border_width = 2; // "<!"
 }
 
 bool TetrisBoard::addBlock(int y, int x) {
@@ -135,7 +131,12 @@ bool TetrisBoard::isBlock(int y, int x) {
     }
     return false;
 }
-
+int TetrisBoard::lastYBlock(){
+    return block_height;
+}
+int TetrisBoard::lastXBlock(){
+    return block_width;
+}
 bool TetrisBoard::checkRow(int y) {
     bool full_row = true;
     int  i = this->border_width;
@@ -163,18 +164,6 @@ bool TetrisBoard::destroyRow(int y) {
         return true;
     } else
         return false;
-}
-
-void TetrisBoard::draw_piece(Tetromino piece) {
-    int* cells = piece.get_cells();
-    int  print_x = 0;
-    int  print_y = 0;
-
-    for (int i = 0; i < 4; i++) {
-        print_x = cells[2 * i] * 2 + piece.origin_x;
-        print_y = cells[2 * i + 1] + piece.origin_y;
-        mvwprintw(win, print_y, print_x + piece.z, "[]");
-    }
 }
 
 int TetrisBoard::getInput() {
