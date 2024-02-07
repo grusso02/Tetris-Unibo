@@ -9,11 +9,11 @@ class Game {
   protected:
     TetrisBoard tetris_board;   // dove cadono i teramini
     Board       scores;         // dove si mostrano i punteggi
-    Board       next_tetromino; // dove mostro prossimo tetramino
+    Board       window_next_tetromino; // dove mostro prossimo tetramino
     bool        game_over; // ci avvisa se il gioca è finito (unica ragione per
                            // terminare)
     Tetromino tetromino;
-    // next_tetramino
+    Tetromino next_tetromino;
     int score; // quello che è mostrato in scores
     int best_score;
 

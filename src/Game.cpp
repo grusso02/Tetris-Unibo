@@ -27,10 +27,10 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
     // inizializzazione
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width, 500); // inizierà a metà schermo
     this->scores = Board(1, 3, 3, 17);       // altezza,larghezza,starty,startx
-    this->next_tetromino = Board(6, 6, 5, 9);
+    this->window_next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
     this->tetromino = Tetromino(tetris_board.getWidth());
-    // next_tetromino
+    this->next_tetromino = Tetromino(tetris_board.getWidth());
     this->score = 0;
     // this->best_score = apriFile(...);
 
@@ -38,9 +38,9 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
     scores.print(0, 0, "score: 0\n\nbest score: 0");
     scores.refresh();
     // inizializzo finestra "next_tetromino"
-    next_tetromino.addBorder('T', 'T');
-    next_tetromino.print(0, 0, "  NEXT:  ");
-    next_tetromino.refresh();
+    window_next_tetromino.addBorder('T', 'T');
+    window_next_tetromino.print(0, 0, "  NEXT:  ");
+    window_next_tetromino.refresh();
 
     // controllo dimensioni stdscr (bozza)
     if ( enoughSpace(tetris_board.getHeight() + START_Y, tetris_board.getWidth() + (max_x / 2), max_y, max_x) == false) {
@@ -55,7 +55,7 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
 
     this->tetris_board.addBlock(10, 0);
     
-    /*
+    
     // test inserimento blocco e eliminaione riga
     this->tetris_board.addBlock(5, 0);
     this->tetris_board.addBlock(5, 1);
@@ -69,7 +69,7 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare tu
     this->tetris_board.addBlock(5, 9);
     // this->tetris_board.destroyRow(5);
     this->tetris_board.refresh();
-    */
+    
 }
 
 bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
@@ -104,15 +104,23 @@ Moves Game::processInput() {
 
 void Game::updateState() {
     Moves m = processInput();
-    delete_piece(tetromino); // PRIMA di attuare modifiche cancello vecchio pezzo
-    if(check_piece(tetromino) == false) // controlla se SOTTO c'è un pezzo
+    
+    if(check_piece(tetromino) == false){ // controlla se SOTTO c'è un pezzo o il fondo
+        delete_piece(tetromino); // PRIMA di attuare modifiche cancello vecchio pezzo
         tetromino.moveTurn(m);
-    else{
-        //passa al prossimo tetromino
     }
+    else{
+        this->tetromino = next_tetromino;
+        this->next_tetromino = Tetromino( tetris_board.getWidth() );
+    }
+
     checkCollision(); // corregge possibili valori illegali nella posizione tetromino
     draw_piece(tetromino);
+
+    //eliminare righe piene(beta)
+    delete_piece(tetromino);
     destroyFullRows();
+    draw_piece(tetromino);
 }
 
 void Game::checkCollision() {
@@ -193,9 +201,9 @@ void Game::delete_piece(Tetromino piece) {
 void Game::destroyFullRows(){
     int tot_rows = 0;
     int i = tetris_board.lastYBlock();
-    while(i <= 0){
+    while(i >= 0){
         if( tetris_board.checkRow(i)==true ){
-            tetris_board.destroyRow(i); // fa cadere tutto quello sopra di una riga
+            tetris_board.destroyRow(i); // e fa cadere tutto quello sopra di una riga
             tot_rows ++;
         }
         else
