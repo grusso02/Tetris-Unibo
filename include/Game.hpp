@@ -29,6 +29,6 @@ class Game {
     void  delete_piece(Tetromino piece);
     void  destroyFullRows();
     void  redraw();
-    void  checkCollision();
+    void  checkCollision(Moves m);
     bool  check_piece();
 };

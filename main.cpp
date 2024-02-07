@@ -21,7 +21,7 @@ int main() {
         game.updateState();
         game.redraw();
     }
-
     endwin();
+    cout << "Hai perso" << endl;
     return 0;
 }

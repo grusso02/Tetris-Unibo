@@ -18,8 +18,9 @@ best_score = 0;
 */
 //}
 
-Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare
-                                    //tutti i parametri(=variabili) della classe
+Game::Game(int height,
+           int width) { //(chiamato quando )serve a inizializzare
+                        // tutti i parametri(=variabili) della classe
 
     // trovo dimensioni terminale
     int max_y, max_x;
@@ -56,22 +57,6 @@ Game::Game(int height, int width) { //(chiamato quando )serve a inizializzare
 
     srandom(time(NULL));
     draw_piece(tetromino);
-
-    this->tetris_board.addBlock(10, 0);
-
-    // test inserimento blocco e eliminaione riga
-    this->tetris_board.addBlock(5, 0);
-    this->tetris_board.addBlock(5, 1);
-    this->tetris_board.addBlock(5, 2);
-    this->tetris_board.addBlock(5, 3);
-    this->tetris_board.addBlock(5, 4);
-    this->tetris_board.addBlock(5, 5);
-    this->tetris_board.addBlock(5, 6);
-    this->tetris_board.addBlock(5, 7);
-    this->tetris_board.addBlock(5, 8);
-    this->tetris_board.addBlock(5, 9);
-    // this->tetris_board.destroyRow(5);
-    this->tetris_board.refresh();
 }
 
 bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
@@ -120,7 +105,7 @@ void Game::updateState() {
         this->next_tetromino = Tetromino(tetris_board.getWidth());
     }
 
-    checkCollision(); // corregge possibili valori illegali nella posizione
+    checkCollision(m); // corregge possibili valori illegali nella posizione
                       // tetromino
     draw_piece(tetromino);
 
@@ -130,7 +115,7 @@ void Game::updateState() {
     draw_piece(tetromino);
 }
 
-void Game::checkCollision() {
+void Game::checkCollision(Moves m) {
     int* cells = tetromino.get_cells();
     int  x_max = 0;
     int  x_min = INT_MAX;
@@ -164,23 +149,18 @@ void Game::checkCollision() {
         tetromino.orientation =
             (tetromino.orientation + 1) % tetromino.symmetry;
 
-    // Collisione tetromino destra
     for (int i = 0; i < 4; i++) {
         int x = cells[2 * i] * 2 + tetromino.origin_x;
         int y = cells[2 * i + 1] + tetromino.origin_y;
 
-        if (tetris_board.getChar(y, x + tetromino.z) == '[') {
+        // Collisione tetromino destra
+        if (m == RIGHT && tetris_board.getChar(y, x + tetromino.z) == '[') {
             tetromino.x--;
             tetromino.z -= 2;
         }
-    }
-
-    // Collisione tetromino sinistra
-    for (int i = 0; i < 4; i++) {
-        int x = cells[2 * i] * 2 + tetromino.origin_x;
-        int y = cells[2 * i + 1] + tetromino.origin_y;
-
-        if (tetris_board.getChar(y, x + tetromino.z + 1) == ']') {
+    
+        // Collisione tetromino sinistra
+        if (m == LEFT && tetris_board.getChar(y, x + tetromino.z + 1) == ']') {
             tetromino.x++;
             tetromino.z += 2;
         }
@@ -200,7 +180,11 @@ bool Game::check_piece() {
         if (tetris_board.getChar(y + 1, x + tetromino.z) == '[' &&
             tetromino.belongs(y + 1, x + tetromino.z) ==
                 false) // controlla se ha pezzo SOTTO
+        {
+            if (tetromino.origin_y == tetromino.y)
+                endGame();
             flag_tetromino = true;
+        }
         if (y + 1 >= tetris_board.lastYBlock())
             flag_bottom = true;
     }
