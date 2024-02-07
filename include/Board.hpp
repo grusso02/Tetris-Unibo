@@ -46,7 +46,5 @@ class TetrisBoard: public Board { // di dimensioni prefissate per "campo da tetr
     int lastXBlock();
     bool checkRow(int y); // controlla se la riga è completa
     bool destroyRow(int y); // distrugge riga se completa e abbassa tutte quelle sopra   
-    void delete_piece(Tetromino piece);
-    void draw_piece(Tetromino piece); 
     int  getInput();
 };

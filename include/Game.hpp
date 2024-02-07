@@ -25,6 +25,9 @@ class Game {
     bool enoughSpace(int, int, int, int);
     Moves processInput();
     void updateState();
+    void draw_piece(Tetromino piece);
+    void delete_piece(Tetromino piece);
+    void destroyFullRows();
     void redraw();
     void checkCollision();
     bool check_piece(Tetromino piece);
