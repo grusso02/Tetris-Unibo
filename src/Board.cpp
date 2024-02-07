@@ -60,15 +60,17 @@ int Board::getWidth() { return this->width; }
 //***********SOTTOCLASSE
 
 TetrisBoard::TetrisBoard() {}
-TetrisBoard::TetrisBoard(int starty, int startx, int height, int width, int rate): Board(starty, startx, height + 1, width + 4) { // spazio per bordo
-    this->border_width = 2; 
-    this->block_height = height - 1; // 1 = fondo 
+TetrisBoard::TetrisBoard(int starty, int startx, int height, int width,
+                         int rate)
+    : Board(starty, startx, height + 1, width + 4) { // spazio per bordo
+    this->border_width = 2;
+    this->block_height = height - 1; // 1 = fondo
     this->block_width = width / 2;
     this->clear();
     this->draw(); // prende n_righe e n_colonne
     // draw() inizializza border_width
     keypad(this->win, true);
-    wtimeout(win,rate);
+    wtimeout(win, rate);
 }
 
 void TetrisBoard::clear() {
@@ -131,12 +133,8 @@ bool TetrisBoard::isBlock(int y, int x) {
     }
     return false;
 }
-int TetrisBoard::lastYBlock(){
-    return block_height;
-}
-int TetrisBoard::lastXBlock(){
-    return block_width;
-}
+int  TetrisBoard::lastYBlock() { return block_height; }
+int  TetrisBoard::lastXBlock() { return block_width; }
 bool TetrisBoard::checkRow(int y) {
     bool full_row = true;
     int  i = this->border_width;

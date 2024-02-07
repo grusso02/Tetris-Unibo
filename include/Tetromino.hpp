@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-enum Moves { ROTATE, RIGHT, LEFT, DOWN };
+enum Moves { ROTATE, RIGHT, LEFT, DOWN, FALL };
 enum Piece { O, S, Z, T, L, J, I };
 
 class Tetromino {
