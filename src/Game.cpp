@@ -10,16 +10,6 @@ Game::Game(int height,
     int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
 
-    // controllo dimensioni stdscr (bozza)
-    if (enoughSpace(tetris_board.getHeight() + START_Y,
-                    tetris_board.getWidth() + (max_x / 2), max_y,
-                    max_x) == false) {
-        clear();
-        mvprintw(0, 0, "Allarga la finestra, grazie");
-        refresh();
-        return;
-    } // nota:per adesso non considera dimensioni scores e next_tetromino;
-
     // inizializzazione
     this->score = 0;
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width,
@@ -45,13 +35,6 @@ Game::Game(int height,
 Game::~Game() {
     score_board.print(2, 0, "Game Over!");
     redraw();
-}
-
-bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
-    if (needed_y > max_y || needed_x > max_x)
-        return false;
-    else
-        return true;
 }
 
 Moves Game::processInput() {
