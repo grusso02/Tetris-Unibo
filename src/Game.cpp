@@ -4,10 +4,21 @@
 Game::Game(int height,
            int width) { //(chiamato quando )serve a inizializzare
                         // tutti i parametri(=variabili) della classe
+    srandom(time(NULL));
 
     // trovo dimensioni terminale
     int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
+
+    // controllo dimensioni stdscr (bozza)
+    if (enoughSpace(tetris_board.getHeight() + START_Y,
+                    tetris_board.getWidth() + (max_x / 2), max_y,
+                    max_x) == false) {
+        clear();
+        mvprintw(0, 0, "Allarga la finestra, grazie");
+        refresh();
+        return;
+    } // nota:per adesso non considera dimensioni scores e next_tetromino;
 
     // inizializzazione
     this->score = 0;
@@ -28,17 +39,6 @@ Game::Game(int height,
     draw_next_piece(next_tetromino);
     window_next_tetromino.refresh();
 
-    // controllo dimensioni stdscr (bozza)
-    if (enoughSpace(tetris_board.getHeight() + START_Y,
-                    tetris_board.getWidth() + (max_x / 2), max_y,
-                    max_x) == false) {
-        clear();
-        mvprintw(0, 0, "Allarga la finestra, grazie");
-        refresh();
-        return;
-    } // nota:per adesso non considera dimensioni scores e next_tetromino;
-
-    srandom(time(NULL));
     draw_piece(tetromino);
 
     fileCalssifica.open("file.txt", std::ios::app); /* Apertura del file */
