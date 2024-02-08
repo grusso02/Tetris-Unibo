@@ -179,3 +179,78 @@ int TetrisBoard::getInput() {
 int TetrisBoard::getTimeout() { return timeout; }
 
 void TetrisBoard::setTimeout(int speed) { wtimeout(win, speed); }
+
+Menu::Menu(int starty,int startx,int height,int width):Board(starty,startx,height,width){
+    draw();
+    getInput();
+};
+
+void Menu::draw(){
+    print(0,0,"Scegli un'opzione e premi invio");
+}
+
+int Menu::getInput(){
+    int y = 0;
+    int selected = -1;
+    char pressed = NULL;
+
+    std::string choices[3] = {"START","BEST SCOES","EXIT"};
+
+    while(selected != -1){
+
+        for(int i=0;i<2;i++){
+            if(i == y)
+                wattron(win,A_STANDOUT);
+            print(i+1,0,choices[i].c_str());
+            wattroff(win,A_STANDOUT);
+        }
+        refresh();
+        // cambio puntatore
+        pressed = wgetch(win);
+        switch(pressed){
+            case KEY_DOWN:
+                if(y-1 >= 0)
+                    y--;
+                break;
+            case KEY_UP:
+                if(y+1 >= 0)
+                    y++;
+            case KEY_ENTER:
+                selected = y;
+                break;
+        }
+    }
+    return selected;
+}
+/*
+void Menu::items(int y){
+    switch (y)
+    {
+    case 0:
+        wattron(win,A_STANDOUT);
+        print(1,0,"START");
+        wattroff(win,A_STANDOUT);
+        print(2,0,"BEST SCORES");
+        print(3,0,"EXIT");
+        break;
+    case 1:
+        wattron(win,A_STANDOUT);
+        print(2,0,"BEST SCORES");
+        wattroff(win,A_STANDOUT);
+        print(1,0,"START");
+        print(3,0,"EXIT");
+        break;
+
+    case 2:
+        wattron(win,A_STANDOUT);
+        print(3,0,"EXIT");
+        wattroff(win,A_STANDOUT);
+        print(1,0,"START");
+        print(2,0,"BEST SCORES");
+        break;
+    
+    default:
+        break;
+    }
+    
+}*/

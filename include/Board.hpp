@@ -75,3 +75,15 @@ class Scoreboard: public Board{
         mvwprintw(win, 0, getWidth() - 10, "%10d", score);
     }
 };
+
+enum casesMenu {START, BEST_SCORES, EXIT};
+
+class Menu: public Board{
+  protected:
+
+  public:
+    Menu(int starty, int startx, int height, int width);
+    void draw();
+    int getInput();
+    void items(int y);
+};
