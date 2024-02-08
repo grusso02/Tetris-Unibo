@@ -13,7 +13,7 @@ Game::Game(int height,
     // inizializzazione
     this->score = 0;
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width,
-                                     500); // inizierà a metà schermo
+                                     250); // inizierà a metà schermo
     this->score_board = Scoreboard(17, 3, 3);
     score_board.initialize(score);
 
