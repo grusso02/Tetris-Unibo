@@ -87,7 +87,7 @@ int main() {
                 int    numbers[NUM_MAX];
                 string linea;
                 int    i = 0;
-                while (getline(fileClassifica, linea, ',')) {
+                while (getline(fileClassifica, linea, ',') && i < 10) {
                     numbers[i] = stoi(linea);
                     i++;
                 }
