@@ -9,6 +9,10 @@ using namespace std;
 #define HEIGHT N
 #define WIDTH N // blocchi = 1/2 dell'altezza, MA blocchi = * 2 caratteri
 
+#define NUM_MAX 10
+
+int compare(const void* a, const void* b) { return (*(int*)b - *(int*)a); }
+
 using namespace std;
 
 int main() {
@@ -20,8 +24,6 @@ int main() {
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
-
-    fileClassifica.open("file.txt", std::ios::app); /* Apertura del file */
 
     WINDOW* menuwin = newwin(0, xMax - 12, yMax - 8, 5);
     box(menuwin, 0, 0);
@@ -68,7 +70,9 @@ int main() {
                     game.updateState();
                     game.redraw();
                 }
+                fileClassifica.open("file.txt", std::ios::app);
                 fileClassifica << game.getScore() << ",";
+                fileClassifica.close();
             }
             if (choices[highlight] == "Scores") {
                 clear();
@@ -77,33 +81,32 @@ int main() {
                 box(rank_board, 0, 0);
                 box(menuwin, 0, 0);
 
+                mvwprintw(rank_board, 1, 5, "CLASSIFICA");
+
+                fileClassifica.open("file.txt", std::ios::in);
+                int    numbers[NUM_MAX];
                 string linea;
-                char        c;
-                int         i = 1;
-                if (fileClassifica.is_open()) {
-                    while (!fileClassifica.eof()) {
-                        cout << "1" << endl;
-                        fileClassifica.get(c);
-                        if (c != ',')
-                            linea += c;
-                        else {
-                            mvwprintw(rank_board, i, 1, linea.c_str());
-                            linea = "";
-                            i++;
-                            wrefresh(rank_board);
-                        }
-                    }
+                int    i = 0;
+                while (getline(fileClassifica, linea, ',')) {
+                    numbers[i] = stoi(linea);
+                    i++;
                 }
+
+                qsort(numbers, NUM_MAX, sizeof(int), compare);
+
+                for (int j = 0; j < NUM_MAX; j++) {
+                    mvwprintw(rank_board, j + 2, 9, "%d", numbers[j]);
+                }
+
                 wrefresh(rank_board);
                 wrefresh(menuwin);
+                fileClassifica.close();
             }
             if (choices[highlight] == "Exit") {
                 break;
             }
         }
     }
-
     endwin();
-    fileClassifica.close();
     return 0;
 }
