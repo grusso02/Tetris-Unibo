@@ -1,15 +1,11 @@
 #pragma once
 #include "../include/Game.hpp"
-#include "../include/common_include.h" //per ncurses e altro
 #include "./Board.hpp"
 #include "./Tetromino.hpp"
 #include <ctime>
-#include <fstream>
 #include <iostream>
 #include <limits.h>
 #include <ncurses.h>
-#include <sys/time.h>
-#include <time.h>
 
 #define START_Y 1
 // #define COORX 30

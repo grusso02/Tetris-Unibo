@@ -1,5 +1,4 @@
 #include "../include/Board.hpp"
-#include "../include/common_include.h" //per ncurses e altro
 
 Board::Board() {}
 

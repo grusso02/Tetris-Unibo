@@ -1,6 +1,7 @@
-#include "include/common_include.h"
+#include "include/Game.hpp"
 #include <iostream>
 #include <ncurses.h>
+#include <fstream>
 
 using namespace std;
 
