@@ -35,11 +35,12 @@ class TetrisBoard
   protected:
     int block_height; // numero di blocchi per colonna
     int block_width;  // numero di blocchi per riga
+    int timeout;
 
   public:
     TetrisBoard();
     TetrisBoard(int starty, int startx, int block_height, int block_width,
-                int rate);
+                int speed);
     void draw();
     bool addBlock(int y, int x); // aggiunge un blocca usando indici da 0 a
                                  // block_height-1 e da 0 a block_width-1
@@ -52,4 +53,6 @@ class TetrisBoard
         int y); // distrugge riga se completa e abbassa tutte quelle sopra
     int  getInput();
     void clear();
+    int  getTimeout();
+    void setTimeout(int speed);
 };

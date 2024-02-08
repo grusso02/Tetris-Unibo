@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-enum Moves { ROTATE, RIGHT, LEFT, DOWN, FALL };
+enum Moves { ZERO, ROTATE, RIGHT, LEFT, DOWN, FALL };
 enum Piece { O, S, Z, T, L, J, I };
 
 class Tetromino {
@@ -28,7 +28,6 @@ class Tetromino {
     int* get_cells();
 
     void move(Moves move);
-    void moveTurn(Moves move);
 
     bool belongs(int check_y, int check_x);
 };
