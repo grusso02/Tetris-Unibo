@@ -66,12 +66,12 @@ class Scoreboard: public Board{
  
     void initialize(int intial_score) {
         clear();
-        mvwprintw(win, 0, 0, "Score: ");
+        mvwprintw(win, 0, 0, "Score:");
         updateScore(intial_score);
         refresh();
     }
  
     void updateScore(int score) {
-        mvwprintw(win, 0, getWidth() - 10, "%10d", score);
+        mvwprintw(win, 0, 10, "%5d", score);
     }
 };

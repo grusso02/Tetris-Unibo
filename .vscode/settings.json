@@ -2,7 +2,10 @@
 	"files.associations": {
 		"deque": "cpp",
 		"string": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"iosfwd": "cpp",
+		"fstream": "cpp",
+		"locale": "cpp"
 	} /*,
 	"editor.formatOnSave": true,
 	"C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, AlignConsecutiveDeclarations: true, PointerAlignment: Left }",

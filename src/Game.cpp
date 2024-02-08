@@ -13,7 +13,7 @@ Game::Game(int height,
     this->score = 0;
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width,
                                      500); // inizierà a metà schermo
-    this->score_board= Scoreboard(17,3,3);
+    this->score_board= Scoreboard(17, 3, 3);
     score_board.initialize(score);
 
     //this->scores = Board(1, 3, 3, 17);     // altezza,larghezza,starty,startx
@@ -40,6 +40,13 @@ Game::Game(int height,
 
     srandom(time(NULL));
     draw_piece(tetromino);
+
+    fileCalssifica.open("file.txt", std::ios::app); /* Apertura del file */
+}
+
+Game::~Game() {
+    fileCalssifica << score << ",";
+    fileCalssifica.close();
 }
 
 bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
