@@ -8,7 +8,7 @@
 class Game {
   protected:
     TetrisBoard tetris_board;          // dove cadono i teramini
-    Board       scores;                // dove si mostrano i punteggi
+    Scoreboard       score_board;                // dove si mostrano i punteggi
     Board       window_next_tetromino; // dove mostro prossimo tetramino
     bool        game_over; // ci avvisa se il gioca è finito (unica ragione per
                            // terminare)
@@ -31,4 +31,5 @@ class Game {
     void  redraw();
     void  checkCollision(Moves m);
     bool  check_piece();
+    void refreshPoints();
 };

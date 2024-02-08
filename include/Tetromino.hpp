@@ -28,7 +28,6 @@ class Tetromino {
     int* get_cells();
 
     void move(Moves move);
-    void moveTurn(Moves move);
 
     bool belongs(int check_y, int check_x);
 };

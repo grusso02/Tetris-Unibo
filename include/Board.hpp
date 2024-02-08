@@ -19,8 +19,7 @@ class Board {
     void   clear();
     bool   addChar(int y, int x, char c);
     bool   delChar(int y, int x);
-    bool   print(int y, int x,
-                 const char* c); // ritorna false se fuori range window
+    bool   print(int y, int x, const char* c); // ritorna false se fuori range window
     chtype getChar(int y, int x);
     void   addBorder(char chary, char charx);
     int    getHeight();
@@ -52,4 +51,24 @@ class TetrisBoard
         int y); // distrugge riga se completa e abbassa tutte quelle sopra
     int  getInput();
     void clear();
+};
+
+class Scoreboard: public Board{ 
+  public:
+    Scoreboard(){};
+    Scoreboard(int width, int y, int x) {
+        this->win = newwin(1, width, y, x);
+    }
+    ~Scoreboard(){};
+ 
+    void initialize(int intial_score) {
+        clear();
+        mvwprintw(win, 0, 0, "Score: ");
+        updateScore(intial_score);
+        refresh();
+    }
+ 
+    void updateScore(int score) {
+        mvwprintw(win, 0, getWidth() - 10, "%10d", score);
+    }
 };

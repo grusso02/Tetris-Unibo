@@ -27,19 +27,24 @@ Game::Game(int height,
     getmaxyx(stdscr, max_y, max_x);
 
     // inizializzazione
+    this->score = 0;
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width,
                                      500); // inizierà a metà schermo
-    this->scores = Board(1, 3, 3, 17);     // altezza,larghezza,starty,startx
+    this->score_board= Scoreboard(17,3,3);
+
+    score_board.initialize(score);
+
+    //this->scores = Board(1, 3, 3, 17);     // altezza,larghezza,starty,startx
     this->window_next_tetromino = Board(6, 6, 5, 9);
     this->game_over = false;
     this->tetromino = Tetromino(tetris_board.getWidth());
     this->next_tetromino = Tetromino(tetris_board.getWidth());
-    this->score = 0;
+    
     // this->best_score = apriFile(...);
 
     // inizializzo finestra "scores"
-    scores.print(0, 0, "score: 0\n\nbest score: 0");
-    scores.refresh();
+    //score_board.print(0, 0, "score: 0\n\nbest score: 0");
+    //score_board.refresh();
     // inizializzo finestra "next_tetromino"
     window_next_tetromino.addBorder('T', 'T');
     window_next_tetromino.print(0, 0, "  NEXT:  ");
@@ -102,8 +107,7 @@ void Game::updateState() {
         this->next_tetromino = Tetromino(tetris_board.getWidth());
     }
 
-    checkCollision(m); // corregge possibili valori illegali nella posizione
-                       // tetromino
+    checkCollision(m); // corregge possibili valori illegali nella posizione tetromino
     draw_piece(tetromino);
 
     // eliminare righe piene(beta)
@@ -112,7 +116,7 @@ void Game::updateState() {
     draw_piece(tetromino);
 }
 
-void Game::checkCollision(Moves m) {
+void Game::checkCollision(Moves m) { // controlla se ATTUALMENTE coordinate tetromino collidono a destra o sinistra
     int* cells = tetromino.get_cells();
     int  x_max = 0;
     int  x_min = INT_MAX;
@@ -223,11 +227,15 @@ void Game::destroyFullRows() {
         } else
             i--;
     }
-    this->score += tot_rows * tot_rows; // = 1, 24, 9, 16
+    this->score += tot_rows * tot_rows; // = 1, 4, 9, 16
+    score_board.updateScore(score);
 }
 
 bool Game::isOver() { return this->game_over; }
 
 void Game::endGame() { this->game_over = true; }
 
-void Game::redraw() { tetris_board.refresh(); }
+void Game::redraw() { 
+    tetris_board.refresh();
+    score_board.refresh();
+}
