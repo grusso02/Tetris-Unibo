@@ -20,7 +20,7 @@
 class Game {
   protected:
     TetrisBoard tetris_board;          // dove cadono i teramini
-    Board       score_board;           // dove si mostrano i punteggi
+    Scoreboard       score_board;                // dove si mostrano i punteggi
     Board       window_next_tetromino; // dove mostro prossimo tetramino
 
     Tetromino tetromino;
