@@ -49,12 +49,12 @@ class TetrisBoard
     int  lastYBlock();
     int  lastXBlock();
     bool checkRow(int y); // controlla se la riga è completa
-    bool destroyRow(
-        int y); // distrugge riga se completa e abbassa tutte quelle sopra
     int  getInput();
     void clear();
     int  getTimeout();
     void setTimeout(int speed);
+    int  getBlockWidth();
+    int  getBlockHeight();
 };
 
 class Scoreboard : public Board {

@@ -46,4 +46,6 @@ class Game {
     void  destroyFullRows();
     void  redraw();
     int   getScore();
+    bool  destroyRow(
+         int y); // distrugge riga se completa e abbassa tutte quelle sopra
 };

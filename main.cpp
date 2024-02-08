@@ -1,7 +1,7 @@
 #include "include/Game.hpp"
+#include <fstream>
 #include <iostream>
 #include <ncurses.h>
-#include <fstream>
 
 using namespace std;
 
@@ -84,7 +84,7 @@ int main() {
                 mvwprintw(rank_board, 1, 5, "CLASSIFICA");
 
                 fileClassifica.open("file.txt", std::ios::in);
-                int numbers[NUM_MAX] = {};
+                int    numbers[NUM_MAX] = {};
                 string linea;
                 int    i = 0;
                 while (getline(fileClassifica, linea, ',') && i < 10) {

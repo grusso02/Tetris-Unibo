@@ -151,24 +151,6 @@ bool TetrisBoard::checkRow(int y) {
     return full_row;
 }
 
-bool TetrisBoard::destroyRow(int y) {
-    if (this->checkRow(y) == true) {
-        // distruggo riga
-        for (int i = 0; i < this->block_width; i++)
-            this->delBlock(y, i);
-        // causo discesa altri elementi
-        for (int i = y - 1; i >= 0; i--) { // vado verso l'alto
-            for (int j = 0; j < this->block_width; j++)
-                if (this->isBlock(i, j)) {
-                    this->delBlock(i, j);
-                    this->addBlock(i + 1, j); // aggiungo più in basso
-                }
-        }
-        return true;
-    } else
-        return false;
-}
-
 int TetrisBoard::getInput() {
     chtype input = wgetch(win);
 
@@ -178,3 +160,7 @@ int TetrisBoard::getInput() {
 int TetrisBoard::getTimeout() { return timeout; }
 
 void TetrisBoard::setTimeout(int speed) { wtimeout(win, speed); }
+
+int TetrisBoard::getBlockWidth() { return this->block_width; }
+
+int TetrisBoard::getBlockHeight() { return this->block_height; }

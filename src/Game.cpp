@@ -223,8 +223,8 @@ void Game::destroyFullRows() {
     int i = tetris_board.lastYBlock();
     while (i >= 0) {
         if (tetris_board.checkRow(i) == true) {
-            tetris_board.destroyRow(
-                i); // e fa cadere tutto quello sopra di una riga
+            destroyRow(i); // se piena cancella e fa cadere tutto quello sopra
+                           // di una riga
             tot_rows++;
         } else
             i--;
@@ -243,3 +243,21 @@ void Game::redraw() {
 }
 
 int Game::getScore() { return score; }
+
+bool Game::destroyRow(int y) {
+    if (tetris_board.checkRow(y) == true) {
+        // distruggo riga
+        for (int i = 0; i < tetris_board.getBlockWidth(); i++)
+            tetris_board.delBlock(y, i);
+        // causo discesa altri elementi
+        for (int i = y - 1; i >= 0; i--) { // vado verso l'alto
+            for (int j = 0; j < tetris_board.getBlockWidth(); j++)
+                if (tetris_board.isBlock(i, j)) {
+                    tetris_board.delBlock(i, j);
+                    tetris_board.addBlock(i + 1, j); // aggiungo più in basso
+                }
+        }
+        return true;
+    } else
+        return false;
+}

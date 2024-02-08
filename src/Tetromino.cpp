@@ -77,7 +77,8 @@ void Tetromino::move(Moves move) { // cambia le coordinate in base all'input
     }
 }
 
-bool Tetromino::belongs(int check_y, int check_x) {
+bool Tetromino::belongs(int check_y,
+                        int check_x) { // se coordinata appartiene al tetromino
     int* cells = get_cells();
     int  x_i = 0;
     int  y_i = 0;
