@@ -24,10 +24,10 @@ Game::Game(int height,
     this->score = 0;
     this->tetris_board = TetrisBoard(START_Y, max_x / 2, height, width,
                                      500); // inizierà a metà schermo
-    this->score_board= Scoreboard(17, 3, 3);
+    this->score_board = Scoreboard(17, 3, 3);
     score_board.initialize(score);
 
-    //this->scores = Board(1, 3, 3, 17);     // altezza,larghezza,starty,startx
+    // this->scores = Board(1, 3, 3, 17);     // altezza,larghezza,starty,startx
     this->window_next_tetromino = Board(6, 6, 5, 9);
 
     this->tetromino = Tetromino(tetris_board.getWidth());
@@ -40,13 +40,11 @@ Game::Game(int height,
     window_next_tetromino.refresh();
 
     draw_piece(tetromino);
-
-    fileCalssifica.open("file.txt", std::ios::app); /* Apertura del file */
 }
 
 Game::~Game() {
-    fileCalssifica << score << ",";
-    fileCalssifica.close();
+    score_board.print(2, 0, "Game Over!");
+    redraw();
 }
 
 bool Game::enoughSpace(int needed_y, int needed_x, int max_y, int max_x) {
@@ -97,7 +95,8 @@ void Game::updateState() {
         window_next_tetromino.refresh();
     }
 
-    checkCollision(m); // corregge possibili valori illegali nella posizione tetromino
+    checkCollision(
+        m); // corregge possibili valori illegali nella posizione tetromino
     draw_piece(tetromino);
 
     // eliminare righe piene(beta)
@@ -106,7 +105,8 @@ void Game::updateState() {
     draw_piece(tetromino);
 }
 
-void Game::checkCollision(Moves m) { // controlla se ATTUALMENTE coordinate tetromino collidono a destra o sinistra
+void Game::checkCollision(Moves m) { // controlla se ATTUALMENTE coordinate
+                                     // tetromino collidono a destra o sinistra
     int* cells = tetromino.get_cells();
     int  x_max = 0;
     int  x_min = INT_MAX;
@@ -237,7 +237,9 @@ bool Game::isOver() { return this->game_over; }
 
 void Game::endGame() { this->game_over = true; }
 
-void Game::redraw() { 
+void Game::redraw() {
     tetris_board.refresh();
     score_board.refresh();
 }
+
+int Game::getScore() { return score; }

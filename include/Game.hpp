@@ -4,12 +4,12 @@
 #include "./Board.hpp"
 #include "./Tetromino.hpp"
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <limits.h>
 #include <ncurses.h>
 #include <sys/time.h>
 #include <time.h>
-#include <fstream>
 
 #define START_Y 1
 // #define COORX 30
@@ -21,7 +21,7 @@
 class Game {
   protected:
     TetrisBoard tetris_board;          // dove cadono i teramini
-    Scoreboard  score_board;                // dove si mostrano i punteggi
+    Scoreboard  score_board;           // dove si mostrano i punteggi
     Board       window_next_tetromino; // dove mostro prossimo tetramino
 
     Tetromino tetromino;
@@ -31,15 +31,14 @@ class Game {
     int  best_score;
     bool game_over; // ci avvisa se il gioca è finito (unica ragione per
                     // terminare)
-    std::ofstream fileCalssifica;
 
   public:
     Game();                      // costruttore di default
     Game(int height, int width); // costruttore personalizzato
     ~Game();
 
-    bool  isOver();              // ritorna true se il gioco è finito
-    void  endGame();             // imposta game_over a true (=finisce partita)
+    bool  isOver();  // ritorna true se il gioco è finito
+    void  endGame(); // imposta game_over a true (=finisce partita)
     bool  enoughSpace(int, int, int, int);
     Moves processInput();
     void  updateState();
@@ -50,4 +49,5 @@ class Game {
     bool  check_floor_and_piece();
     void  destroyFullRows();
     void  redraw();
+    int   getScore();
 };

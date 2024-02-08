@@ -6,12 +6,12 @@
 		"iosfwd": "cpp",
 		"fstream": "cpp",
 		"locale": "cpp"
-	} /*,
+	},
 	"editor.formatOnSave": true,
 	"C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, AlignConsecutiveDeclarations: true, PointerAlignment: Left }",
 	"C_Cpp.autoAddFileAssociations": false,
 	"editor.tabSize": 4,
 	"editor.insertSpaces": true,
 	"cmake.configureOnOpen": false,
-	"editor.wordWrap": "off",*/
+	"editor.wordWrap": "off",
 }
